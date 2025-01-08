@@ -52,12 +52,12 @@ jobs:
     # Step 7: Build the Docker image
     - name: Build Docker image
       run: |
-        docker build -t simple-web-app .
+        docker build -t simple_web_app .
 
     # Step 8: Run the Docker container
     - name: Run Docker container
       run: |
-        docker run -d -p 5000:5000 --name monthly-calculator-container simple-web-app
+        docker run -d -p 5000:5000 --name simple_web_app
 
     # Optional: Push Docker image to GitHub Container Registry
     - name: Log in to GitHub Container Registry
