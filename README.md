@@ -15,8 +15,14 @@ This project demonstrates how to deploy a simple web application using Docker an
 
     Build and run the Docker container locally:
 
-    docker build -t hello-world-app .
-    docker run -d -p 5000:5000 hello-world-app
+    docker build -t simple_web_app .
+    docker run -d -p 5000:5000 simple_web_app
+
+    Else to simply download from GHCR
+
+    docker run -d -p 5000:5000 --name simple_web_app_container ghcr.io/surfbum99/simple_web_app:latest
+
+    
 
     Access the application at http://localhost:5000.
 
