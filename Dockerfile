@@ -4,6 +4,10 @@ FROM python:3.10-slim
 # Set the working directory
 WORKDIR /app
 
+# Create a non-root user to run the application
+RUN adduser --disabled-password myuser
+USER myuser
+
 # Copy application files
 COPY . /app
 
