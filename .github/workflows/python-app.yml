@@ -68,5 +68,5 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Push Docker image to GitHub Container Registry
       run: |
-        docker tag monthly-calculator-app ghcr.io/${{ github.repository_owner }}/monthly-calculator-app:latest
-        docker push ghcr.io/${{ github.repository_owner }}/monthly-calculator-app:latest
+        docker tag simple_web_app ghcr.io/${{ github.repository_owner }}/simple_web_app:latest
+        docker push ghcr.io/${{ github.repository_owner }}/simple_web_app:latest
