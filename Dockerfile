@@ -14,4 +14,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 5000
 
 # Command to run the application
-CMD ["python", "simple-hw-web.py"]
+CMD ["python", "simple_hw_web.py"]
