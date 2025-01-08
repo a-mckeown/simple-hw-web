@@ -17,10 +17,14 @@ This project demonstrates how to deploy a simple web "Hello World" application u
    ```bash
     docker build -t simple_web_app .
     docker run -d -p 5000:5000 simple_web_app
-3.  Else to simply download the image from GHCR
+   
+3.  Or download the image from GHCR
    ```bash
     docker run -d -p 5000:5000 --name simple_web_app_container ghcr.io/surfbum99/simple_web_app:latest
+   ```
+## Access the application at http://localhost:5000
 
-4. 
-    Access the application at http://localhost:5000.
-
+   Making sure there isn't anything already running on your local machine on TCP port 5000 as this is a common port for testing on. 
+   ```bash
+   sudo lsof -i :5000
+   ```
