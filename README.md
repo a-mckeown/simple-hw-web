@@ -29,3 +29,7 @@ This project demonstrates how to deploy a simple web "Hello World" application u
    ```bash
    sudo lsof -i :5000
    ```
+
+4. Monitoring
+
+   There is a basic monitor.sh script avaliable to check if the container is running.
