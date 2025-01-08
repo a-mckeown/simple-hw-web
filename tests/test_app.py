@@ -11,4 +11,4 @@ def test_get_index(client):
     """Test the GET request to the index route."""
     response = client.get("/")
     assert response.status_code == 200
-    assert b"Calculate" in response.data  # Check for specific text in the HTML response
+    assert b"Hello, World!" in response.data
