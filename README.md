@@ -24,7 +24,8 @@ This project demonstrates how to deploy a simple web "Hello World" application u
    ```
 ## Access the application at http://localhost:5000
 
-   Making sure there isn't anything already running on your local machine on TCP port 5000 as this is a common port for testing on. 
+   Make sure there isn't anything already running on your local machine on TCP port 5000 as this is a common port for testing on.
+   It is also commonly used for Apple's Airplay receiver.
    ```bash
    sudo lsof -i :5000
    ```
