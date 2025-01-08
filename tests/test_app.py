@@ -1,5 +1,5 @@
 import pytest
-from simple-web-app import app  # Import simple Flask app
+from simple_web_app import app  # Import simple Flask app
 
 @pytest.fixture
 def client():
