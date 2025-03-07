@@ -55,9 +55,9 @@ jobs:
         IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/simple_web_app
         docker build -t $IMAGE_NAME:$IMAGE_TAG .
 
-    - name: Debug IMAGE_TAG
-      run: |
-        echo "IMAGE_TAG is: $IMAGE_TAG"
+    - name: Set IMAGE_TAG
+      run: echo "IMAGE_TAG=$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_ENV
+
 
     # Step 8: Run the Docker container
     - name: Run Docker container
