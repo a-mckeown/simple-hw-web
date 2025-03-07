@@ -1,6 +1,6 @@
 # Simple Web Application Deployment with Docker and GitHub Actions
 
-## Overview
+## Overview of project
 This project demonstrates how to deploy a simple web "Hello World" application using Docker and GitHub Actions.
 
 ## Prerequisites
