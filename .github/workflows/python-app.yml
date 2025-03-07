@@ -70,3 +70,16 @@ jobs:
       run: |
         docker tag simple_web_app ghcr.io/${{ github.repository_owner }}/simple_web_app:latest
         docker push ghcr.io/${{ github.repository_owner }}/simple_web_app:latest
+
+        - name: Update Kubernetes manifest with new image tag
+        - name: Update Kubernetes manifest with new image tag
+    - name:
+      run: |
+          IMAGE_TAG=$(echo $GITHUB_SHA | cut -c1-7)
+          sed -i "s|ghcr.io/${{ github.repository_owner }}/simple_web_app:.*|ghcr.io/${{ github.repository_owner }}/simple_web_app:$IMAGE_TAG|" k8s/deployment.yaml
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git add deployment.yaml
+          git commit -m "Update image tag to $IMAGE_TAG"
+          git push
+  
