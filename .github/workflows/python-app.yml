@@ -48,23 +48,25 @@ jobs:
         export PYTHONPATH=$GITHUB_WORKSPACE
         pytest
 
-    # Step 7: Build the Docker image
-    - name: Build Docker image
-      run: |
-        IMAGE_TAG=$(echo $GITHUB_SHA | cut -c1-7)
-        IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/simple_web_app
-        docker build -t $IMAGE_NAME:$IMAGE_TAG .
-
+    # Step 7: Set IMAGE_TAG environment variable
     - name: Set IMAGE_TAG
       run: echo "IMAGE_TAG=$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_ENV
 
-
-    # Step 8: Run the Docker container
-    - name: Run Docker container
+    # Step 8: Build the Docker image
+    - name: Build Docker image
       run: |
-        docker run -d -p 5000:5000 --name simple_web_app_container ghcr.io/${{ github.repository_owner }}/simple_web_app:$IMAGE_TAG
+        IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/simple_web_app
+        docker build -t $IMAGE_NAME:$IMAGE_TAG -t $IMAGE_NAME:latest .
 
-    # Step 9: Log in to GitHub Container Registry
+    # Step 9: Run Docker container (Optional step for local testing, can be removed in CI/CD)
+    - name: Run Docker container (optional)
+      run: |
+        IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/simple_web_app
+        docker run -d -p 5000:5000 --name simple_web_app_container $IMAGE_NAME:$IMAGE_TAG
+      env:
+        IMAGE_TAG: ${{ env.IMAGE_TAG }}
+
+    # Step 10: Log in to GitHub Container Registry
     - name: Log in to GitHub Container Registry
       uses: docker/login-action@v2
       with:
@@ -72,21 +74,17 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
-    # Step 10: Push Docker image to GitHub Container Registry
+    # Step 11: Push Docker image to GitHub Container Registry
     - name: Push Docker image
       run: |
         IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/simple_web_app
-        IMAGE_TAG=$(echo $GITHUB_SHA | cut -c1-7)
-
         echo "Pushing image: $IMAGE_NAME:$IMAGE_TAG"
-        docker tag simple_web_app $IMAGE_NAME:$IMAGE_TAG
         docker push $IMAGE_NAME:$IMAGE_TAG
-
-        echo "Tagging latest image"
-        docker tag simple_web_app $IMAGE_NAME:latest
         docker push $IMAGE_NAME:latest
+      env:
+        IMAGE_TAG: ${{ env.IMAGE_TAG }}
 
-    # Step 11: Update Kubernetes manifest with new image tag
+    # Step 12: Update Kubernetes manifest with new image tag
     - name: Update Kubernetes manifest
       run: |
         IMAGE_TAG=$(echo $GITHUB_SHA | cut -c1-7)
@@ -97,5 +95,5 @@ jobs:
         git add k8s/deployment.yaml
         git commit -m "Update image tag to $IMAGE_TAG"
         git push
-
-  
+      env:
+        IMAGE_TAG: ${{ env.IMAGE_TAG }}
