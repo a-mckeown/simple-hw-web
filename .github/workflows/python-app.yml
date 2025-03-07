@@ -7,8 +7,8 @@ on:
     branches: [ "main" ]
 
 permissions:
-  contents: read
-  packages: write
+  contents: write  # Allow pushing changes to the repository
+  packages: write  # Allow pushing Docker images to GHCR
 
 jobs:
   build:
@@ -50,6 +50,8 @@ jobs:
     # Step 7: Set IMAGE_TAG environment variable
     - name: Set IMAGE_TAG
       run: echo "IMAGE_TAG=$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_ENV
+
+
 
     # Step 8: Build the Docker image
     - name: Build Docker image
