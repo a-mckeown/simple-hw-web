@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: simple-web-app
-        image: ghcr.io/a-mckeown/simple_web_app:eb286af
+        image: ghcr.io/a-mckeown/simple_web_app:latest
         ports:
-        - containerPort: 5000
+        - containerPort: 80 
