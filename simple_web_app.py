@@ -18,7 +18,7 @@ def hello_world():
             </style>
         </head>
         <body>
-            Hello, World! Roman has long hair and a tail
+            Hello, World! Roman has short hair and some sweets
         </body>
     </html>
     """
